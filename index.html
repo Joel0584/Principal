@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
     <script>
         moment.locale('es');
+        moment.tz.setDefault("America/Caracas");
     </script>
     <style>
         :root {
@@ -924,7 +925,7 @@
                     
                     <div class="form-group">
                         <label for="phone"><i class="fas fa-mobile-alt"></i> Número de Celular *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="Ej: 04121234567">
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej: 04121234567" pattern="[0-9]{11}">
                     </div>
                     
                     <div class="form-group">
@@ -1260,14 +1261,17 @@
         // Tasa de cambio fija del BCV
         const EXCHANGE_RATE = 121.00;
         
-        // Configurar zona horaria de Venezuela
-        moment.tz.setDefault("America/Caracas");
+        // Almacenamiento de citas completas con fallback para GitHub Pages
+        let appointments = [];
+        let reservedSlots = {};
         
-        // Almacenamiento de citas completas
-        let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
-        
-        // Almacenamiento de horarios reservados
-        let reservedSlots = JSON.parse(localStorage.getItem('reservedSlots')) || {};
+        // Intentar cargar datos desde localStorage
+        try {
+            appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+            reservedSlots = JSON.parse(localStorage.getItem('reservedSlots')) || {};
+        } catch (e) {
+            console.log("Error al cargar datos de localStorage, usando datos vacíos");
+        }
         
         // Actualizar fecha y hora en tiempo real
         function updateDateTime() {
@@ -1375,10 +1379,11 @@
                     const slotTime = moment().set({
                         hour: parseInt(timeParts[0]),
                         minute: parseInt(timeParts[1]),
-                        second: 0
+                        second: 0,
+                        millisecond: 0
                     });
                     
-                    if (slotTime.isBefore(now)) {
+                    if (slotTime.isSameOrBefore(now, 'minute')) {
                         slot.classList.add('past');
                     } else {
                         slot.classList.add('available');
@@ -1651,7 +1656,7 @@
             
             // Intentar abrir WhatsApp
             try {
-                // Guardar la cita
+                // Guardar la cita con manejo de errores
                 const appointment = {
                     id: Date.now(), // ID único
                     fullName,
@@ -1672,7 +1677,12 @@
                 };
                 
                 appointments.push(appointment);
-                localStorage.setItem('appointments', JSON.stringify(appointments));
+                
+                try {
+                    localStorage.setItem('appointments', JSON.stringify(appointments));
+                } catch (e) {
+                    console.log("Error al guardar en localStorage:", e);
+                }
                 
                 // Guardar el horario como reservado
                 const dateKey = date.replace(/-/g, '');
@@ -1683,7 +1693,12 @@
                 
                 if (!reservedSlots[dateKey].includes(selectedTime)) {
                     reservedSlots[dateKey].push(selectedTime);
-                    localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                    
+                    try {
+                        localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                    } catch (e) {
+                        console.log("Error al guardar en localStorage:", e);
+                    }
                 }
                 
                 // Abrir WhatsApp con el mensaje
@@ -1695,7 +1710,12 @@
                 
                 if (reservedSlots[dateKey] && reservedSlots[dateKey].includes(selectedTime)) {
                     reservedSlots[dateKey] = reservedSlots[dateKey].filter(t => t !== selectedTime);
-                    localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                    
+                    try {
+                        localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                    } catch (e) {
+                        console.log("Error al actualizar localStorage:", e);
+                    }
                 }
             }
             
@@ -1750,6 +1770,22 @@
             if (selectedDay === 1) {
                 alert('Lo sentimos, los lunes no están disponibles para citas.');
                 return;
+            }
+            
+            // Validar que el horario no sea pasado si es hoy
+            if (selectedDate === today) {
+                const timeParts = selectedTime.split(':');
+                const slotTime = moment().set({
+                    hour: parseInt(timeParts[0]),
+                    minute: parseInt(timeParts[1]),
+                    second: 0,
+                    millisecond: 0
+                });
+
+                if (slotTime.isSameOrBefore(moment(), 'minute')) {
+                    alert('No se puede agendar una cita en un horario que ya ha pasado.');
+                    return;
+                }
             }
             
             // Mostrar modal de términos
@@ -1837,12 +1873,22 @@
                         
                         if (reservedSlots[dateKey]) {
                             reservedSlots[dateKey] = reservedSlots[dateKey].filter(t => t !== appointment.time);
-                            localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                            
+                            try {
+                                localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                            } catch (e) {
+                                console.log("Error al actualizar localStorage:", e);
+                            }
                         }
                         
                         // Marcar cita como cancelada
                         appointments[appointmentIndex].status = 'cancelada';
-                        localStorage.setItem('appointments', JSON.stringify(appointments));
+                        
+                        try {
+                            localStorage.setItem('appointments', JSON.stringify(appointments));
+                        } catch (e) {
+                            console.log("Error al actualizar localStorage:", e);
+                        }
                         
                         // Volver a buscar citas
                         searchAppointmentsBtn.click();
