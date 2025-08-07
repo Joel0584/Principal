@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACES 24 - Visita Médica Domiciliaria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <script>
+        moment.locale('es');
+    </script>
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --light-bg: #f0f5ff;
+            --light-bg-alt: #e6f7ff;
+            --light-text: #ffffff;
+            --dark-text: #1e293b;
+            --card-bg: #ffffff;
+            --shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--light-bg), var(--light-bg-alt));
+            color: var(--dark-text);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Compacto */
+        header {
+            background: linear-gradient(120deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--light-text);
+            text-align: center;
+            padding: 18px 0;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .tagline {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        
+        .current-time {
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 30px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-actions {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        /* Banner de fines de semana */
+        .weekend-banner {
+            background: linear-gradient(90deg, var(--accent-green), #059669);
+            color: var(--light-text);
+            text-align: center;
+            padding: 12px;
+            border-radius: 14px;
+            margin: 15px 0;
+            box-shadow: var(--shadow);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        /* Nuevo banner para tasa BCV */
+        .exchange-banner {
+            background: linear-gradient(90deg, var(--accent-purple), #7c3aed);
+            color: var(--light-text);
+            text-align: center;
+            padding: 12px;
+            border-radius: 14px;
+            margin: 15px 0;
+            box-shadow: var(--shadow);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        /* Main content */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent-green);
+            font-weight: 600;
+            font-size: 1.4rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-purple);
+            border-radius: 3px;
+        }
+        
+        /* Form section */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e7ff;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: var(--light-bg-alt);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+        
+        .zone-container {
+            display: none;
+        }
+        
+        .note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 5px;
+            padding-left: 10px;
+            font-style: italic;
+        }
+        
+        .price-display {
+            background: linear-gradient(120deg, #e6f7ff, #dbf4ff);
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            color: var(--primary-blue);
+            border: 2px dashed var(--accent-green);
+            font-size: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .price-ves {
+            font-size: 0.95rem;
+            background: rgba(16, 185, 129, 0.15);
+            padding: 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+        
+        .minor-note {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: #92400e;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .time-slot {
+            padding: 14px;
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            border: 2px solid transparent;
+            font-size: 0.9rem;
+            background: var(--light-bg-alt);
+        }
+        
+        .time-slot.available {
+            background: #d1fae5;
+            border-color: var(--accent-green);
+            color: #065f46;
+        }
+        
+        .time-slot.available:hover {
+            background: #a7f3d0;
+        }
+        
+        .time-slot.selected {
+            background: var(--primary-blue);
+            color: white;
+            border-color: #1d4ed8;
+        }
+        
+        .time-slot.past {
+            background: #e2e8f0;
+            color: #64748b;
+            border-color: #cbd5e1;
+            cursor: not-allowed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .time-slot.past::after {
+            content: "NO DISPONIBLE";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(100, 116, 139, 0.85);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            border-radius: 12px;
+        }
+        
+        .time-slot.reserved {
+            background: #fee2e2;
+            color: #b91c1c;
+            border-color: #f87171;
+            cursor: not-allowed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .time-slot.reserved::after {
+            content: "RESERVADO";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(185, 28, 28, 0.85);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            border-radius: 12px;
+        }
+        
+        /* NUEVO DISEÑO PARA MÉTODOS DE PAGO */
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .payment-option {
+            flex: 1;
+            min-width: 110px;
+            padding: 10px;
+            background: var(--light-bg);
+            border: 2px solid #dbeafe;
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-blue);
+        }
+        
+        .payment-option.selected {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+        }
+        
+        .payment-option.selected::after {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-green);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .payment-option i {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .payment-option.selected i {
+            transform: scale(1.1);
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(120deg, var(--accent-green), #059669);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(120deg, #059669, var(--accent-green));
+        }
+        
+        /* Benefits section */
+        .benefits-section {
+            background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
+            padding: 35px 20px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .benefits-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.7rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 600;
+        }
+        
+        .benefits-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-green);
+            border-radius: 3px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .benefit-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .benefit-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--dark-text);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: white;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            background: linear-gradient(120deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        footer p {
+            margin: 8px 0;
+        }
+        
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--accent-green);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
+            z-index: 100;
+            cursor: pointer;
+            animation: pulse 1.8s infinite;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .whatsapp-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.6);
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        
+        /* Modal de condiciones */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            background: linear-gradient(120deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 20px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-content {
+            padding: 25px;
+        }
+        
+        .terms-container {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        
+        .terms-container h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .terms-container p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .terms-container ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .terms-container li {
+            margin-bottom: 8px;
+        }
+        
+        .accept-terms {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .accept-terms input {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .modal-btn.cancel {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #cbd5e1;
+        }
+        
+        .modal-btn.cancel:hover {
+            background: #e2e8f0;
+        }
+        
+        .modal-btn.confirm {
+            background: var(--accent-green);
+            color: white;
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .modal-btn.confirm:hover {
+            background: #059669;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .success-message i {
+            font-size: 4rem;
+            color: var(--accent-green);
+            margin-bottom: 20px;
+        }
+        
+        .success-message h2 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        /* Modal de efectivo */
+        .cash-options {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .cash-option {
+            flex: 1;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            background: #f1f5f9;
+            border: 2px solid #dbeafe;
+            transition: var(--transition);
+        }
+        
+        .cash-option.selected {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+        
+        .cash-option i {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        /* Modal de gestión de citas */
+        .appointment-card {
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid var(--accent-green);
+        }
+        
+        .appointment-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .appointment-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .cancel-appointment-btn {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .cancel-appointment-btn:hover {
+            background: #fecaca;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+        
+        /* Responsive design */
+        @media (min-width: 768px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+            
+            .form-section {
+                flex: 1;
+                min-width: 300px;
+            }
+            
+            .weekend-banner, .exchange-banner {
+                font-size: 1rem;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .payment-option {
+                min-width: 120px;
+            }
+            
+            .cash-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .benefits-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .payment-option {
+                min-width: 130px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera compacta -->
+        <header>
+            <div class="header-actions">
+                <button class="action-btn" id="manageAppointmentBtn">
+                    <i class="fas fa-calendar-check"></i> Gestionar Cita
+                </button>
+            </div>
+            
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div>
+                    <h1>ACES 24 Salud a tu Alcance</h1>
+                    <p class="tagline">Visita Médica General a Domicilio</p>
+                </div>
+            </div>
+            <div class="current-time" id="current-time">
+                <i class="fas fa-clock"></i> <span id="time-display">Cargando hora...</span>
+            </div>
+        </header>
+        
+        <!-- Banner de fines de semana -->
+        <div class="weekend-banner">
+            <i class="fas fa-calendar-check"></i> ¡Fines de semana (Sábado y Domingo) al mismo precio!
+        </div>
+        
+        <!-- Nuevo banner para tasa BCV -->
+        <div class="exchange-banner">
+            <i class="fas fa-money-bill-wave"></i> Tasa de cambio oficial BCV: $1 = 121.00 Bs
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="form-section">
+                <h2 class="section-title">Solicita tu Visita Médica</h2>
+                
+                <form id="medicalForm">
+                    <div class="form-group">
+                        <label for="fullName"><i class="fas fa-user"></i> Nombre y Apellido *</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age"><i class="fas fa-birthday-cake"></i> Edad *</label>
+                        <input type="number" id="age" name="age" min="1" max="120" required placeholder="Ej: 35">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="idNumber"><i class="fas fa-id-card"></i> Número de Cédula *</label>
+                        <input type="text" id="idNumber" name="idNumber" required placeholder="Ej: V-12345678">
+                        <div class="note">En caso de no poseer, agregar el número de cédula de la madre o representante legal.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-mobile-alt"></i> Número de Celular *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Ej: 04121234567">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parish"><i class="fas fa-map-marker-alt"></i> Parroquia *</label>
+                        <select id="parish" name="parish" required>
+                            <option value="">Seleccione una parroquia</option>
+                            <option value="caucagua">Caucagua</option>
+                            <option value="marizapa">Marizapa</option>
+                        </select>
+                    </div>
+                    
+                    <div id="caucaguaZones" class="zone-container">
+                        <div class="form-group">
+                            <label for="caucaguaZone"><i class="fas fa-location-dot"></i> Zona de Caucagua *</label>
+                            <select id="caucaguaZone" name="zone">
+                                <option value="">Seleccione una zona</option>
+                                <option value="La línea">La línea</option>
+                                <option value="El Viento">El Viento</option>
+                                <option value="El Hoyo El Cacho">El Hoyo El Cacho</option>
+                                <option value="Tajamar">Tajamar</option>
+                                <option value="Rivas Dávila">Rivas Dávila</option>
+                                <option value="Terminal">Terminal</option>
+                                <option value="La Libertad">La Libertad</option>
+                                <option value="Calle Acevedo">Calle Acevedo</option>
+                                <option value="Plaza Bolívar">Plaza Bolívar</option>
+                                <option value="Las Brisas">Las Brisas</option>
+                                <option value="Calle Julio Isturis">Calle Julio Isturis</option>
+                                <option value="Macaguita parte baja">Macaguita parte baja</option>
+                                <option value="El Recreo (Calle Bolívar)">El Recreo (Calle Bolívar)</option>
+                                <option value="El Zamuro">El Zamuro</option>
+                                <option value="El Rincón">El Rincón</option>
+                                <option value="Las Clavellinas">Las Clavellinas</option>
+                                <option value="El Placer">El Placer</option>
+                                <option value="Las Colonias">Las Colonias</option>
+                                <option value="El Cedral">El Cedral</option>
+                                <option value="Palmarito">Palmarito</option>
+                                <option value="La Laguna">La Laguna</option>
+                                <option value="El Cumbito">El Cumbito</option>
+                                <option value="Viamar">Viamar</option>
+                                <option value="Los Robles">Los Robles</option>
+                                <option value="Los Cedros">Los Cedros</option>
+                                <option value="Río Grande">Río Grande</option>
+                                <option value="El Porvenir">El Porvenir</option>
+                                <option value="Encrucijada">Encrucijada</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="marizapaZones" class="zone-container">
+                        <div class="form-group">
+                            <label for="marizapaZone"><i class="fas fa-location-dot"></i> Zona de Marizapa *</label>
+                            <select id="marizapaZone" name="zone">
+                                <option value="">Seleccione una zona</option>
+                                <option value="Villa Docencia">Villa Docencia</option>
+                                <option value="Calle Principal de Marizapa">Calle Principal de Marizapa</option>
+                                <option value="Plaza Bolívar de Marizapa">Plaza Bolívar de Marizapa</option>
+                                <option value="José Gregorio">José Gregorio</option>
+                                <option value="Santa Eduviges">Santa Eduviges</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Nuevos campos agregados -->
+                    <div class="form-group">
+                        <label for="address"><i class="fas fa-home"></i> Dirección Exacta *</label>
+                        <textarea id="address" name="address" required placeholder="Ingrese su dirección exacta"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reference"><i class="fas fa-map-pin"></i> Punto de Referencia</label>
+                        <input type="text" id="reference" name="reference" placeholder="Ej: Frente al supermercado, casa azul, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date"><i class="fas fa-calendar-alt"></i> Fecha de Visita *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-clock"></i> Horarios Disponibles *</label>
+                        <div class="time-slots" id="timeSlotsContainer">
+                            <!-- Horarios generados dinámicamente -->
+                        </div>
+                        <input type="hidden" id="selectedTime" name="selectedTime">
+                    </div>
+                    
+                    <div id="priceDisplay" class="price-display">
+                        <div><i class="fas fa-tag"></i> Precio de la consulta: $<span id="usdPrice">15.00</span></div>
+                        <div class="price-ves">Equivalente: <span id="vesPrice">1815.00</span> Bs (Tasa BCV: 121.00 Bs/$)</div>
+                    </div>
+                    
+                    <div class="minor-note">
+                        <i class="fas fa-exclamation-circle"></i> Todo paciente menor de edad debe de estar acompañado de su representante al momento de la consulta domiciliaria.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-credit-card"></i> Método de Pago *</label>
+                        <div class="payment-options">
+                            <div class="payment-option" data-payment="pago-movil">
+                                <i class="fas fa-mobile-alt"></i>
+                                <div>Pago Móvil</div>
+                            </div>
+                            <div class="payment-option" data-payment="transferencia">
+                                <i class="fas fa-exchange-alt"></i>
+                                <div>Transferencia</div>
+                            </div>
+                            <div class="payment-option" data-payment="vepos">
+                                <i class="fas fa-wallet"></i>
+                                <div>Monedero Patria</div>
+                            </div>
+                            <div class="payment-option" data-payment="crixto-pay">
+                                <i class="fas fa-hands-praying"></i>
+                                <div>Crixto Pay</div>
+                            </div>
+                            <div class="payment-option" data-payment="efectivo">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <div>Efectivo</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="paymentMethod" name="paymentMethod">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Solicitar Visita
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Sección de beneficios -->
+        <div class="benefits-section">
+            <div class="benefits-container">
+                <h2 class="benefits-title">Beneficios de Nuestro Servicio</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Comodidad en tu Hogar</h3>
+                        <p>Recibe atención médica profesional sin salir de casa, evitando desplazamientos y tiempos de espera en clínicas u hospitales.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Atención Personalizada</h3>
+                        <p>Consulta médica completa con tiempo suficiente para resolver todas tus dudas y preocupaciones de manera detallada.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Prevención y Seguimiento</h3>
+                        <p>Control de enfermedades crónicas, seguimiento postoperatorio y detección temprana de problemas de salud.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Entorno Seguro</h3>
+                        <p>Reduce el riesgo de contagio de enfermedades infecciosas evitando salas de espera y transporte público.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Atención Familiar</h3>
+                        <p>Posibilidad de atender a varios miembros de la familia en una sola visita, especialmente beneficioso para niños y adultos mayores.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Horarios Flexibles</h3>
+                        <p>Ofrecemos horarios adaptados a tus necesidades, incluso fines de semana, para que recibas atención cuando más lo necesites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>ACES 24 Salud a tu Alcance © <span id="current-year"></span> | Atención Médica Domiciliaria</p>
+            <p><i class="fas fa-phone"></i> Contáctanos: 0426-4968774 | <i class="fas fa-envelope"></i> aces24salud@gmail.com</p>
+            <p><i class="fas fa-clock"></i> Horario de atención: de lunes a domingo de 8:00 am a 4:00 pm</p>
+        </footer>
+    </div>
+    
+    <a href="https://wa.me/584264968774" class="whatsapp-icon" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Modal de condiciones -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Confirmación de Solicitud</h2>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="info-summary" id="infoSummary">
+                    <!-- Resumen de información se llenará aquí -->
+                </div>
+                
+                <div class="terms-container">
+                    <h3>CONDICIONES DE PAGO - ACES 24: SALUD A TU ALCANCE!</h3>
+                    
+                    <p>1. MÉTODOS DE PAGO ACEPTADOS:</p>
+                    <p>Facilitamos su experiencia con múltiples opciones:</p>
+                    <ul>
+                        <li>Transferencias bancarias.</li>
+                        <li>Pago móvil interbancario.</li>
+                        <li>Monedero Patria.</li>
+                        <li>Criptomonedas autorizadas (ej: Crixto Pay).</li>
+                        <li>Efectivo (en Bolívares o divisas).</li>
+                    </ul>
+                    
+                    <p>2. TASA DE CAMBIO:</p>
+                    <p>Los pagos en divisas se calcularán según la tasa oficial vigente publicada por el Banco Central de Venezuela (BCV) al momento de la transacción.</p>
+                    
+                    <p>3. POLÍTICA DE REEMBOLSOS:</p>
+                    <p>Las cancelaciones de servicios darán lugar a reembolsos procesados bajo las normativas legales venezolanas, previa evaluación de cada caso.</p>
+                    
+                    <p>4. PROTECCIÓN DE DATOS:</p>
+                    <p>Sus datos personales se gestionan con estricto cumplimiento de la Ley de Protección de Datos Personales y regulaciones aplicables en Venezuela, garantizando confidencialidad y seguridad.</p>
+                    
+                    <p>5. CONFIRMACIÓN DE TRANSACCIONES:</p>
+                    <p>Para validar su pago, deberá proporcionar:</p>
+                    <ul>
+                        <li>Número de cédula.</li>
+                        <li>Comprobante de la transacción (según el método utilizado).</li>
+                    </ul>
+                    
+                    <p>ACEPTACIÓN DE TÉRMINOS</p>
+                    <p>Al solicitar servicios médicos a través de ACES 24, usted reconoce haber leído y aceptado estas condiciones de pago y las normativas internas de la plataforma.</p>
+                    
+                    <p>COMPROMISO DE TRANSPARENCIA</p>
+                    <p>Operamos bajo el marco legal de la República Bolivariana de Venezuela, asegurando procesos claros, auditables y alineados con los estándares de calidad del sector salud.</p>
+                </div>
+                
+                <div class="accept-terms">
+                    <input type="checkbox" id="acceptTerms">
+                    <label for="acceptTerms">He leído y acepto las condiciones de pago</label>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button class="modal-btn cancel" id="cancelBtn">Cancelar</button>
+                    <button class="modal-btn confirm" id="confirmBtn" disabled>Confirmar y Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de éxito -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Solicitud Exitosa</h2>
+                <button class="close-modal" id="closeSuccessModal">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>¡Solicitud Procesada Exitosamente!</h2>
+                    <p>Tu información ha sido procesada correctamente.</p>
+                    <p>Por favor continúa enviando la información a nuestro WhatsApp para completar tu reserva.</p>
+                    <button class="modal-btn confirm" id="whatsappBtn">
+                        <i class="fab fa-whatsapp"></i> Continuar a WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de gestión de citas -->
+    <div class="modal-overlay" id="manageModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Gestionar mi Cita</h2>
+                <button class="close-modal" id="closeManageModal">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="form-group">
+                    <label for="searchId"><i class="fas fa-id-card"></i> Ingrese su número de cédula *</label>
+                    <input type="text" id="searchId" name="searchId" required placeholder="Ej: V-12345678">
+                </div>
+                
+                <button class="submit-btn" id="searchAppointmentsBtn">
+                    <i class="fas fa-search"></i> Buscar mis citas
+                </button>
+                
+                <div id="appointmentsList" style="margin-top: 20px;">
+                    <!-- Aquí se mostrarán las citas encontradas -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de efectivo -->
+    <div class="modal-overlay" id="cashModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Pago en Efectivo</h2>
+                <button class="close-modal" id="closeCashModal">×</button>
+            </div>
+            <div class="modal-content">
+                <p>Por favor seleccione la moneda con la que realizará el pago:</p>
+                
+                <div class="cash-options">
+                    <div class="cash-option" data-currency="bs">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div>Bolívares (Bs)</div>
+                    </div>
+                    <div class="cash-option" data-currency="usd">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div>Dólares ($)</div>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons" style="margin-top: 20px;">
+                    <button class="modal-btn cancel" id="cancelCashBtn">Cancelar</button>
+                    <button class="modal-btn confirm" id="confirmCashBtn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tasa de cambio fija del BCV
+        const EXCHANGE_RATE = 121.00;
+        
+        // Configurar zona horaria de Venezuela
+        moment.tz.setDefault("America/Caracas");
+        
+        // Almacenamiento de citas completas
+        let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        
+        // Almacenamiento de horarios reservados
+        let reservedSlots = JSON.parse(localStorage.getItem('reservedSlots')) || {};
+        
+        // Actualizar fecha y hora en tiempo real
+        function updateDateTime() {
+            const now = moment();
+            const dateTimeString = now.format('dddd, D [de] MMMM [de] YYYY [|] h:mm:ss A');
+            document.getElementById('time-display').textContent = dateTimeString;
+        }
+        
+        // Actualizar año actual en el footer
+        document.getElementById('current-year').textContent = moment().year();
+        
+        // Configurar fecha mínima para hoy
+        const today = moment().format('YYYY-MM-DD');
+        document.getElementById('date').min = today;
+        document.getElementById('date').value = today;
+        
+        // Inicializar y actualizar cada segundo
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        
+        // Función para actualizar los precios
+        function updatePrices(age) {
+            let price = 15.00;
+            let priceType = "General";
+            
+            if (age < 13) {
+                price = 12.00;
+                priceType = "Niños";
+            } else if (age >= 55) {
+                price = 12.00;
+                priceType = "Adultos Mayores";
+            }
+            
+            // Calcular precio en bolívares
+            const priceVES = (price * EXCHANGE_RATE).toFixed(2);
+            
+            // Actualizar elementos HTML
+            document.getElementById('usdPrice').textContent = price.toFixed(2);
+            document.getElementById('vesPrice').textContent = priceVES;
+        }
+        
+        // Inicializar precios
+        updatePrices(0);
+        
+        // Mostrar zonas según parroquia seleccionada
+        document.getElementById('parish').addEventListener('change', function() {
+            const parish = this.value;
+            document.getElementById('caucaguaZones').style.display = 'none';
+            document.getElementById('marizapaZones').style.display = 'none';
+            
+            if (parish === 'caucagua') {
+                document.getElementById('caucaguaZones').style.display = 'block';
+            } else if (parish === 'marizapa') {
+                document.getElementById('marizapaZones').style.display = 'block';
+            }
+        });
+        
+        // Actualizar precio según edad
+        document.getElementById('age').addEventListener('input', function() {
+            const age = parseInt(this.value) || 0;
+            updatePrices(age);
+        });
+        
+        // Generar horarios disponibles
+        function generateTimeSlots() {
+            const container = document.getElementById('timeSlotsContainer');
+            container.innerHTML = '';
+            
+            // Horarios disponibles (8:00 AM a 2:00 PM cada 2 horas)
+            const times = ['08:00', '10:00', '12:00', '14:00'];
+            const selectedDate = document.getElementById('date').value;
+            
+            // Verificar si es lunes (día 1)
+            const selectedDay = moment(selectedDate).day();
+            const isMonday = selectedDay === 1;
+            
+            // Verificar si la fecha es hoy
+            const isToday = selectedDate === today;
+            const now = moment();
+            
+            // Crear clave para la fecha seleccionada
+            const dateKey = selectedDate.replace(/-/g, '');
+            
+            times.forEach(time => {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                slot.textContent = formatTime(time);
+                slot.setAttribute('data-time', time);
+                
+                // Comprobar si es lunes
+                if (isMonday) {
+                    slot.classList.add('reserved');
+                    slot.innerHTML = "Lunes no disponible";
+                    slot.style.cursor = "not-allowed";
+                } 
+                // Comprobar si está reservado
+                else if (reservedSlots[dateKey] && reservedSlots[dateKey].includes(time)) {
+                    slot.classList.add('reserved');
+                    slot.innerHTML = "Reservado";
+                    slot.style.cursor = "not-allowed";
+                }
+                // Verificar si es un horario pasado para hoy
+                else if (isToday) {
+                    const timeParts = time.split(':');
+                    const slotTime = moment().set({
+                        hour: parseInt(timeParts[0]),
+                        minute: parseInt(timeParts[1]),
+                        second: 0
+                    });
+                    
+                    if (slotTime.isBefore(now)) {
+                        slot.classList.add('past');
+                    } else {
+                        slot.classList.add('available');
+                        addTimeSlotClickListener(slot, time);
+                    }
+                } 
+                // Horario disponible
+                else {
+                    slot.classList.add('available');
+                    addTimeSlotClickListener(slot, time);
+                }
+                
+                container.appendChild(slot);
+            });
+        }
+        
+        // Función para agregar evento click a un horario disponible
+        function addTimeSlotClickListener(slot, time) {
+            slot.addEventListener('click', function() {
+                // Remover selección anterior
+                document.querySelectorAll('.time-slot').forEach(s => {
+                    s.classList.remove('selected');
+                });
+                
+                // Marcar como seleccionado
+                this.classList.add('selected');
+                document.getElementById('selectedTime').value = time;
+            });
+        }
+        
+        // Formatear hora para mostrar
+        function formatTime(time) {
+            const [hours, minutes] = time.split(':');
+            const hour = parseInt(hours);
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            return `${displayHour}:${minutes} ${period}`;
+        }
+        
+        // Inicializar horarios
+        generateTimeSlots();
+        
+        // Actualizar horarios al cambiar fecha
+        document.getElementById('date').addEventListener('change', generateTimeSlots);
+        
+        // Selección de método de pago
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        let selectedPayment = null;
+        let cashCurrency = null;
+        
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const paymentType = this.getAttribute('data-payment');
+                
+                // Si es efectivo, mostrar modal para seleccionar moneda
+                if (paymentType === 'efectivo') {
+                    document.getElementById('cashModal').classList.add('active');
+                } else {
+                    // Remover selección anterior
+                    paymentOptions.forEach(o => {
+                        o.classList.remove('selected');
+                    });
+                    
+                    // Marcar como seleccionado
+                    this.classList.add('selected');
+                    selectedPayment = paymentType;
+                    document.getElementById('paymentMethod').value = selectedPayment;
+                }
+            });
+        });
+        
+        // Selección de moneda para efectivo
+        const cashOptions = document.querySelectorAll('.cash-option');
+        cashOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                cashOptions.forEach(o => {
+                    o.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                cashCurrency = this.getAttribute('data-currency');
+            });
+        });
+        
+        // Confirmar selección de efectivo
+        document.getElementById('confirmCashBtn').addEventListener('click', function() {
+            if (!cashCurrency) {
+                alert('Por favor seleccione una moneda');
+                return;
+            }
+            
+            // Remover selección anterior de otros métodos
+            paymentOptions.forEach(o => {
+                o.classList.remove('selected');
+            });
+            
+            // Marcar efectivo como seleccionado
+            document.querySelector('[data-payment="efectivo"]').classList.add('selected');
+            selectedPayment = `efectivo-${cashCurrency}`;
+            document.getElementById('paymentMethod').value = selectedPayment;
+            
+            // Cerrar modal
+            document.getElementById('cashModal').classList.remove('active');
+        });
+        
+        // Cerrar modal de efectivo
+        document.getElementById('closeCashModal').addEventListener('click', function() {
+            document.getElementById('cashModal').classList.remove('active');
+        });
+        
+        document.getElementById('cancelCashBtn').addEventListener('click', function() {
+            document.getElementById('cashModal').classList.remove('active');
+        });
+        
+        // Modal de términos
+        const termsModal = document.getElementById('termsModal');
+        const successModal = document.getElementById('successModal');
+        const manageModal = document.getElementById('manageModal');
+        const closeModal = document.getElementById('closeModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const closeManageModal = document.getElementById('closeManageModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const acceptTerms = document.getElementById('acceptTerms');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const manageAppointmentBtn = document.getElementById('manageAppointmentBtn');
+        const searchAppointmentsBtn = document.getElementById('searchAppointmentsBtn');
+        
+        // Habilitar botón de confirmación cuando se aceptan los términos
+        acceptTerms.addEventListener('change', function() {
+            confirmBtn.disabled = !this.checked;
+        });
+        
+        // Abrir modal de términos
+        function openTermsModal() {
+            // Crear resumen de información
+            const fullName = document.getElementById('fullName').value;
+            const age = document.getElementById('age').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const phone = document.getElementById('phone').value;
+            const parish = document.getElementById('parish').value;
+            const date = document.getElementById('date').value;
+            const selectedTime = document.getElementById('selectedTime').value;
+            const paymentMethod = selectedPayment;
+            const address = document.getElementById('address').value;
+            const reference = document.getElementById('reference').value;
+            
+            let zone = '';
+            if (parish === 'caucagua') {
+                zone = document.getElementById('caucaguaZone').value;
+            } else if (parish === 'marizapa') {
+                zone = document.getElementById('marizapaZone').value;
+            }
+            
+            const patientAge = parseInt(age);
+            let price = 15.00;
+            let priceType = "General";
+            
+            if (patientAge < 13) {
+                price = 12.00;
+                priceType = "Niños";
+            } else if (patientAge >= 55) {
+                price = 12.00;
+                priceType = "Adultos Mayores";
+            }
+            
+            // Calcular precio en bolívares
+            const priceVES = (price * EXCHANGE_RATE).toFixed(2);
+            
+            const summary = `
+                <div class="info-summary">
+                    <h3>Resumen de tu solicitud</h3>
+                    <p><strong>Nombre:</strong> ${fullName}</p>
+                    <p><strong>Edad:</strong> ${age}</p>
+                    <p><strong>Cédula:</strong> ${idNumber}</p>
+                    <p><strong>Celular:</strong> ${phone}</p>
+                    <p><strong>Ubicación:</strong> ${parish === 'caucagua' ? 'Caucagua' : 'Marizapa'} - ${zone}</p>
+                    <p><strong>Dirección:</strong> ${address}</p>
+                    ${reference ? `<p><strong>Referencia:</strong> ${reference}</p>` : ''}
+                    <p><strong>Fecha:</strong> ${moment(date).format('DD/MM/YYYY')}</p>
+                    <p><strong>Hora:</strong> ${formatTime(selectedTime)}</p>
+                    <p><strong>Método de pago:</strong> ${getPaymentMethodName(paymentMethod)}</p>
+                    <p><strong>Precio:</strong> $${price.toFixed(2)} (${priceType}) | ${priceVES} Bs</p>
+                </div>
+            `;
+            
+            document.getElementById('infoSummary').innerHTML = summary;
+            termsModal.classList.add('active');
+        }
+        
+        // Cerrar modal de términos
+        closeModal.addEventListener('click', function() {
+            termsModal.classList.remove('active');
+        });
+        
+        cancelBtn.addEventListener('click', function() {
+            termsModal.classList.remove('active');
+        });
+        
+        // Confirmar y enviar
+        confirmBtn.addEventListener('click', function() {
+            if (!acceptTerms.checked) {
+                alert('Por favor, acepta las condiciones de pago para continuar.');
+                return;
+            }
+            
+            // Cerrar modal de términos y mostrar modal de éxito
+            termsModal.classList.remove('active');
+            successModal.classList.add('active');
+        });
+        
+        // Cerrar modal de éxito
+        closeSuccessModal.addEventListener('click', function() {
+            successModal.classList.remove('active');
+        });
+        
+        // Continuar a WhatsApp
+        whatsappBtn.addEventListener('click', function() {
+            // Obtener datos del formulario
+            const fullName = document.getElementById('fullName').value;
+            const age = document.getElementById('age').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const phone = document.getElementById('phone').value;
+            const parish = document.getElementById('parish').value;
+            const date = document.getElementById('date').value;
+            const selectedTime = document.getElementById('selectedTime').value;
+            const paymentMethod = selectedPayment;
+            const address = document.getElementById('address').value;
+            const reference = document.getElementById('reference').value;
+            
+            let zone = '';
+            if (parish === 'caucagua') {
+                zone = document.getElementById('caucaguaZone').value;
+            } else if (parish === 'marizapa') {
+                zone = document.getElementById('marizapaZone').value;
+            }
+            
+            const patientAge = parseInt(age);
+            let price = 15.00;
+            let priceType = "General";
+            
+            if (patientAge < 13) {
+                price = 12.00;
+                priceType = "Niños";
+            } else if (patientAge >= 55) {
+                price = 12.00;
+                priceType = "Adultos Mayores";
+            }
+            
+            // Calcular precio en bolívares
+            const priceVES = (price * EXCHANGE_RATE).toFixed(2);
+            
+            // Formatear mensaje para WhatsApp
+            const message = `*Nueva Solicitud de Visita Médica Domiciliaria ACES 24*\n\n` +
+                            `*Nombre y Apellido:* ${fullName}\n` +
+                            `*Edad:* ${age}\n` +
+                            `*Cédula:* ${idNumber}\n` +
+                            `*Celular:* ${phone}\n` +
+                            `*Parroquia:* ${parish === 'caucagua' ? 'Caucagua' : 'Marizapa'}\n` +
+                            `*Zona:* ${zone}\n` +
+                            `*Dirección:* ${address}\n` +
+                            `${reference ? `*Referencia:* ${reference}\n` : ''}` +
+                            `*Fecha:* ${moment(date).format('DD/MM/YYYY')}\n` +
+                            `*Hora:* ${formatTime(selectedTime)}\n` +
+                            `*Método de Pago:* ${getPaymentMethodName(paymentMethod)}\n` +
+                            `*Precio (${priceType}):* $${price.toFixed(2)} | ${priceVES} Bs\n\n` +
+                            `_Solicitud generada el ${moment().format('DD/MM/YYYY [a las] h:mm A')}_`;
+            
+            // Codificar mensaje para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Intentar abrir WhatsApp
+            try {
+                // Guardar la cita
+                const appointment = {
+                    id: Date.now(), // ID único
+                    fullName,
+                    age,
+                    idNumber,
+                    phone,
+                    parish,
+                    zone,
+                    address,
+                    reference,
+                    date,
+                    time: selectedTime,
+                    paymentMethod,
+                    price: price.toFixed(2),
+                    priceVES,
+                    status: 'pendiente',
+                    createdAt: moment().format()
+                };
+                
+                appointments.push(appointment);
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                
+                // Guardar el horario como reservado
+                const dateKey = date.replace(/-/g, '');
+                
+                if (!reservedSlots[dateKey]) {
+                    reservedSlots[dateKey] = [];
+                }
+                
+                if (!reservedSlots[dateKey].includes(selectedTime)) {
+                    reservedSlots[dateKey].push(selectedTime);
+                    localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                }
+                
+                // Abrir WhatsApp con el mensaje
+                window.open(`https://wa.me/584264968774?text=${encodedMessage}`, '_blank');
+            } catch (e) {
+                // Si falla la apertura de WhatsApp, liberar el horario
+                alert('Error al intentar abrir WhatsApp. Por favor, inténtelo nuevamente.');
+                const dateKey = date.replace(/-/g, '');
+                
+                if (reservedSlots[dateKey] && reservedSlots[dateKey].includes(selectedTime)) {
+                    reservedSlots[dateKey] = reservedSlots[dateKey].filter(t => t !== selectedTime);
+                    localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                }
+            }
+            
+            // Cerrar modal de éxito
+            successModal.classList.remove('active');
+            
+            // Actualizar la visualización de horarios
+            generateTimeSlots();
+        });
+        
+        // Enviar formulario (mostrar modal de términos)
+        document.getElementById('medicalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar selección de hora
+            const selectedTime = document.getElementById('selectedTime').value;
+            if (!selectedTime) {
+                alert('Por favor, seleccione un horario disponible.');
+                return;
+            }
+            
+            // Validar método de pago
+            if (!selectedPayment) {
+                alert('Por favor, seleccione un método de pago.');
+                return;
+            }
+            
+            // Validar zona seleccionada
+            const parish = document.getElementById('parish').value;
+            let zone = '';
+            if (parish === 'caucagua') {
+                zone = document.getElementById('caucaguaZone').value;
+            } else if (parish === 'marizapa') {
+                zone = document.getElementById('marizapaZone').value;
+            }
+            
+            if (!zone) {
+                alert('Por favor, seleccione una zona.');
+                return;
+            }
+            
+            // Validar dirección
+            const address = document.getElementById('address').value;
+            if (!address) {
+                alert('Por favor, ingrese su dirección exacta.');
+                return;
+            }
+            
+            // Verificar si es lunes
+            const selectedDate = document.getElementById('date').value;
+            const selectedDay = moment(selectedDate).day();
+            if (selectedDay === 1) {
+                alert('Lo sentimos, los lunes no están disponibles para citas.');
+                return;
+            }
+            
+            // Mostrar modal de términos
+            openTermsModal();
+        });
+        
+        // Función para obtener nombre del método de pago
+        function getPaymentMethodName(method) {
+            switch(method) {
+                case 'pago-movil': return 'Pago Móvil';
+                case 'transferencia': return 'Transferencia';
+                case 'vepos': return 'Monedero Patria (vePos)';
+                case 'crixto-pay': return 'Crixto Pay';
+                case 'efectivo-bs': return 'Efectivo (Bs)';
+                case 'efectivo-usd': return 'Efectivo ($)';
+                default: return 'No especificado';
+            }
+        }
+        
+        // Abrir modal de gestión de citas
+        manageAppointmentBtn.addEventListener('click', function() {
+            document.getElementById('searchId').value = '';
+            document.getElementById('appointmentsList').innerHTML = '';
+            manageModal.classList.add('active');
+        });
+        
+        // Cerrar modal de gestión de citas
+        closeManageModal.addEventListener('click', function() {
+            manageModal.classList.remove('active');
+        });
+        
+        // Buscar citas por cédula
+        searchAppointmentsBtn.addEventListener('click', function() {
+            const idNumber = document.getElementById('searchId').value.trim();
+            if (!idNumber) {
+                alert('Por favor ingrese su número de cédula.');
+                return;
+            }
+            
+            const userAppointments = appointments.filter(app => app.idNumber === idNumber && app.status === 'pendiente');
+            const container = document.getElementById('appointmentsList');
+            container.innerHTML = '';
+            
+            if (userAppointments.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No se encontraron citas activas para esta cédula</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            userAppointments.forEach(app => {
+                const appElement = document.createElement('div');
+                appElement.className = 'appointment-card';
+                appElement.innerHTML = `
+                    <h3>Cita Médica</h3>
+                    <p><strong>Nombre:</strong> ${app.fullName}</p>
+                    <p><strong>Fecha:</strong> ${moment(app.date).format('DD/MM/YYYY')}</p>
+                    <p><strong>Hora:</strong> ${formatTime(app.time)}</p>
+                    <p><strong>Dirección:</strong> ${app.address}</p>
+                    <p><strong>Método de Pago:</strong> ${getPaymentMethodName(app.paymentMethod)}</p>
+                    <button class="cancel-appointment-btn" data-id="${app.id}">
+                        <i class="fas fa-times-circle"></i> Cancelar Cita
+                    </button>
+                `;
+                container.appendChild(appElement);
+            });
+        });
+        
+        // Cancelar una cita
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cancel-appointment-btn')) {
+                const appointmentId = parseInt(e.target.getAttribute('data-id'));
+                const appointmentIndex = appointments.findIndex(app => app.id === appointmentId);
+                
+                if (appointmentIndex !== -1) {
+                    const appointment = appointments[appointmentIndex];
+                    
+                    // Confirmación antes de cancelar
+                    if (confirm(`¿Está seguro que desea cancelar la cita del ${moment(appointment.date).format('DD/MM/YYYY')} a las ${formatTime(appointment.time)}?`)) {
+                        // Liberar el horario reservado
+                        const dateKey = appointment.date.replace(/-/g, '');
+                        
+                        if (reservedSlots[dateKey]) {
+                            reservedSlots[dateKey] = reservedSlots[dateKey].filter(t => t !== appointment.time);
+                            localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
+                        }
+                        
+                        // Marcar cita como cancelada
+                        appointments[appointmentIndex].status = 'cancelada';
+                        localStorage.setItem('appointments', JSON.stringify(appointments));
+                        
+                        // Volver a buscar citas
+                        searchAppointmentsBtn.click();
+                        
+                        // Actualizar horarios en el formulario principal
+                        generateTimeSlots();
+                        
+                        alert('Cita cancelada exitosamente.');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
