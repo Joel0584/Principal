@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACES 24 - Visita Médica Domiciliaria</title>
+    <title>Consulta Médica Domiciliaria</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -39,91 +39,118 @@
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: 50px;
+            padding: 15px 0;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 15px;
         }
         
-        /* Header Compacto */
+        /* Header más compacto con animaciones */
         header {
             background: linear-gradient(120deg, var(--primary-blue), var(--secondary-blue));
             color: var(--light-text);
             text-align: center;
-            padding: 18px 0;
-            border-radius: 20px;
-            margin-bottom: 20px;
+            padding: 12px 0;
+            border-radius: 15px;
+            margin-bottom: 15px;
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            border-bottom: 4px solid var(--accent-green);
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .logo-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 8px;
+            gap: 8px;
+            padding: 0 20px;
         }
         
         .logo-icon {
-            font-size: 1.8rem;
-            width: 55px;
-            height: 55px;
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 8px;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         header h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 4px;
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+            animation: fadeIn 0.8s 0.3s ease-out both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .tagline {
             font-size: 0.95rem;
-            opacity: 0.9;
+            opacity: 0.95;
             max-width: 600px;
             margin: 0 auto;
-            font-weight: 300;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            animation: fadeIn 0.8s 0.5s ease-out both;
         }
         
         .current-time {
             background: rgba(255, 255, 255, 0.15);
             display: inline-block;
-            padding: 8px 18px;
+            padding: 6px 15px;
             border-radius: 30px;
-            margin-top: 12px;
-            font-size: 0.9rem;
+            margin-top: 8px;
+            font-size: 0.85rem;
             font-weight: 500;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.8s 0.7s ease-out both;
         }
         
         .header-actions {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         .action-btn {
             background: rgba(255, 255, 255, 0.15);
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: var(--transition);
             backdrop-filter: blur(5px);
@@ -135,57 +162,52 @@
         
         .action-btn:hover {
             background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
         
-        /* Banner de fines de semana */
-        .weekend-banner {
-            background: linear-gradient(90deg, var(--accent-green), #059669);
-            color: var(--light-text);
-            text-align: center;
-            padding: 12px;
-            border-radius: 14px;
-            margin: 15px 0;
-            box-shadow: var(--shadow);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        
-        /* Nuevo banner para tasa BCV */
+        /* Banner más compacto */
         .exchange-banner {
             background: linear-gradient(90deg, var(--accent-purple), #7c3aed);
             color: var(--light-text);
             text-align: center;
-            padding: 12px;
-            border-radius: 14px;
-            margin: 15px 0;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 12px 0;
             box-shadow: var(--shadow);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        /* Main content */
+        /* Main content más compacto */
         .content-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            margin-bottom: 30px;
+            gap: 20px;
+            margin-bottom: 25px;
         }
         
         .form-section {
             background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
+            padding: 18px;
+            border-radius: 18px;
             box-shadow: var(--shadow);
         }
         
         .section-title {
             color: var(--primary-blue);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
             border-bottom: 3px solid var(--accent-green);
             font-weight: 600;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .section-title::after {
@@ -193,43 +215,43 @@
             position: absolute;
             bottom: -3px;
             left: 0;
-            width: 50px;
+            width: 40px;
             height: 3px;
             background: var(--accent-purple);
             border-radius: 3px;
         }
         
-        /* Form section */
+        /* Form section más compacto */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 500;
             color: var(--primary-blue);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 14px;
+            padding: 10px;
             border: 2px solid #e0e7ff;
-            border-radius: 14px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             transition: var(--transition);
             background: var(--light-bg-alt);
             font-family: 'Poppins', sans-serif;
         }
         
         .form-group textarea {
-            min-height: 80px;
+            min-height: 70px;
             resize: vertical;
         }
         
@@ -248,152 +270,88 @@
         .note {
             font-size: 0.8rem;
             color: #64748b;
-            margin-top: 5px;
-            padding-left: 10px;
+            margin-top: 3px;
+            padding-left: 8px;
             font-style: italic;
         }
         
+        /* Banner de precio más compacto */
         .price-display {
-            background: linear-gradient(120deg, #e6f7ff, #dbf4ff);
-            padding: 16px;
-            border-radius: 16px;
-            text-align: center;
-            margin: 20px 0;
-            font-weight: bold;
-            color: var(--primary-blue);
-            border: 2px dashed var(--accent-green);
-            font-size: 1.1rem;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid var(--primary-blue);
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.1);
+        }
+        
+        .price-info {
+            flex: 1;
+            min-width: 200px;
+            padding: 6px;
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .price-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark-text);
+        }
+        
+        .price-secondary {
+            font-size: 0.85rem;
+            color: #64748b;
         }
         
         .price-ves {
-            font-size: 0.95rem;
-            background: rgba(16, 185, 129, 0.15);
-            padding: 8px;
-            border-radius: 10px;
-            margin-top: 5px;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 6px;
+            font-size: 0.85rem;
         }
         
         .minor-note {
             background: #fffbeb;
             border-left: 4px solid #f59e0b;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-            margin: 15px 0;
-            font-size: 0.9rem;
+            margin: 12px 0;
+            font-size: 0.85rem;
             color: #92400e;
         }
         
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .time-slot {
-            padding: 14px;
-            border-radius: 14px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            border: 2px solid transparent;
-            font-size: 0.9rem;
-            background: var(--light-bg-alt);
-        }
-        
-        .time-slot.available {
-            background: #d1fae5;
-            border-color: var(--accent-green);
-            color: #065f46;
-        }
-        
-        .time-slot.available:hover {
-            background: #a7f3d0;
-        }
-        
-        .time-slot.selected {
-            background: var(--primary-blue);
-            color: white;
-            border-color: #1d4ed8;
-        }
-        
-        .time-slot.past {
-            background: #e2e8f0;
-            color: #64748b;
-            border-color: #cbd5e1;
-            cursor: not-allowed;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .time-slot.past::after {
-            content: "NO DISPONIBLE";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(100, 116, 139, 0.85);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            border-radius: 12px;
-        }
-        
-        .time-slot.reserved {
-            background: #fee2e2;
-            color: #b91c1c;
-            border-color: #f87171;
-            cursor: not-allowed;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .time-slot.reserved::after {
-            content: "RESERVADO";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(185, 28, 28, 0.85);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            border-radius: 12px;
-        }
-        
-        /* NUEVO DISEÑO PARA MÉTODOS DE PAGO */
+        /* Métodos de pago más compactos */
         .payment-options {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
+            gap: 6px;
+            margin: 12px 0;
         }
         
         .payment-option {
             flex: 1;
-            min-width: 110px;
-            padding: 10px;
+            min-width: 90px;
+            padding: 8px;
             background: var(--light-bg);
             border: 2px solid #dbeafe;
-            border-radius: 14px;
+            border-radius: 10px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -424,8 +382,8 @@
             right: -8px;
             background: var(--accent-green);
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             font-size: 0.7rem;
             display: flex;
@@ -435,8 +393,8 @@
         }
         
         .payment-option i {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+            margin-bottom: 6px;
             display: block;
             transition: var(--transition);
         }
@@ -448,16 +406,16 @@
         .submit-btn {
             display: block;
             width: 100%;
-            padding: 16px;
+            padding: 12px;
             background: linear-gradient(120deg, var(--accent-green), #059669);
             color: white;
             border: none;
-            border-radius: 16px;
-            font-size: 1.05rem;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            margin-top: 15px;
+            margin-top: 12px;
             box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
             font-family: 'Poppins', sans-serif;
             letter-spacing: 0.5px;
@@ -465,22 +423,24 @@
         
         .submit-btn:hover {
             background: linear-gradient(120deg, #059669, var(--accent-green));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
         }
         
-        /* Benefits section */
+        /* Benefits section más compacto */
         .benefits-section {
             background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
-            padding: 35px 20px;
-            border-radius: 20px;
-            margin: 30px 0;
+            padding: 20px 12px;
+            border-radius: 16px;
+            margin: 20px 0;
             box-shadow: var(--shadow);
         }
         
         .benefits-title {
             text-align: center;
             color: white;
-            margin-bottom: 25px;
-            font-size: 1.7rem;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
             position: relative;
             display: inline-block;
             left: 50%;
@@ -491,10 +451,10 @@
         .benefits-title::after {
             content: "";
             position: absolute;
-            bottom: -8px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 50px;
             height: 3px;
             background: var(--accent-green);
             border-radius: 3px;
@@ -502,68 +462,74 @@
         
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
         
         .benefit-card {
             background: rgba(255, 255, 255, 0.95);
-            padding: 25px;
-            border-radius: 18px;
+            padding: 15px;
+            border-radius: 12px;
             box-shadow: var(--shadow);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: var(--transition);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
         
         .benefit-icon {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--accent-purple);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: inline-block;
         }
         
         .benefit-card h3 {
             color: var(--primary-blue);
-            margin-bottom: 12px;
-            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-size: 1rem;
             font-weight: 600;
         }
         
         .benefit-card p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             line-height: 1.6;
             color: var(--dark-text);
         }
         
-        /* Footer */
+        /* Footer más compacto */
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 12px;
             color: white;
-            margin-top: 30px;
-            font-size: 0.9rem;
+            margin-top: 20px;
+            font-size: 0.8rem;
             background: linear-gradient(120deg, var(--primary-blue), var(--secondary-blue));
-            border-radius: 20px;
+            border-radius: 16px;
             box-shadow: var(--shadow);
         }
         
         footer p {
-            margin: 8px 0;
+            margin: 4px 0;
         }
         
         .whatsapp-icon {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
+            bottom: 15px;
+            right: 15px;
             background: var(--accent-green);
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             box-shadow: 0 6px 15px rgba(16, 185, 129, 0.4);
             z-index: 100;
             cursor: pointer;
@@ -584,7 +550,7 @@
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
         
-        /* Modal de condiciones */
+        /* Modal de condiciones más compacto */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -608,9 +574,9 @@
         
         .modal {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             width: 90%;
-            max-width: 700px;
+            max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -625,22 +591,22 @@
         .modal-header {
             background: linear-gradient(120deg, var(--primary-blue), var(--secondary-blue));
             color: white;
-            padding: 20px;
-            border-radius: 20px 20px 0 0;
+            padding: 12px;
+            border-radius: 16px 16px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .modal-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
         
         .close-modal {
             background: none;
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             cursor: pointer;
             transition: var(--transition);
         }
@@ -650,67 +616,68 @@
         }
         
         .modal-content {
-            padding: 25px;
+            padding: 15px;
         }
         
         .terms-container {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            max-height: 300px;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 12px 0;
+            max-height: 280px;
             overflow-y: auto;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         
         .terms-container h3 {
             color: var(--primary-blue);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
         
         .terms-container p {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             line-height: 1.6;
         }
         
         .terms-container ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
+            padding-left: 18px;
+            margin-bottom: 8px;
         }
         
         .terms-container li {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         
         .accept-terms {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 8px;
+            margin: 12px 0;
+            font-size: 0.9rem;
         }
         
         .accept-terms input {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
         }
         
         .modal-buttons {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 12px;
         }
         
         .modal-btn {
             flex: 1;
-            padding: 12px;
-            border-radius: 14px;
+            padding: 9px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             border: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-family: 'Poppins', sans-serif;
         }
         
@@ -736,80 +703,52 @@
         
         .success-message {
             text-align: center;
-            padding: 30px;
+            padding: 15px;
         }
         
         .success-message i {
-            font-size: 4rem;
+            font-size: 3rem;
             color: var(--accent-green);
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         
         .success-message h2 {
             color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-        
-        /* Modal de efectivo */
-        .cash-options {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .cash-option {
-            flex: 1;
-            padding: 15px;
-            border-radius: 14px;
-            text-align: center;
-            cursor: pointer;
-            background: #f1f5f9;
-            border: 2px solid #dbeafe;
-            transition: var(--transition);
-        }
-        
-        .cash-option.selected {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
-        }
-        
-        .cash-option i {
-            font-size: 1.8rem;
             margin-bottom: 8px;
-            display: block;
+            font-size: 1.3rem;
         }
         
-        /* Modal de gestión de citas */
+        /* Modal de gestión de citas más compacto */
         .appointment-card {
             background: #f1f5f9;
-            border-radius: 14px;
-            padding: 15px;
-            margin: 10px 0;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 6px 0;
             border-left: 4px solid var(--accent-green);
         }
         
         .appointment-card h3 {
             color: var(--primary-blue);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
         }
         
         .appointment-card p {
-            margin: 5px 0;
-            font-size: 0.9rem;
+            margin: 3px 0;
+            font-size: 0.8rem;
         }
         
         .cancel-appointment-btn {
             background: #fee2e2;
             color: #b91c1c;
             border: none;
-            padding: 8px 15px;
-            border-radius: 10px;
-            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
             cursor: pointer;
             font-weight: 500;
             transition: var(--transition);
+            font-size: 0.8rem;
         }
         
         .cancel-appointment-btn:hover {
@@ -818,40 +757,28 @@
         
         .empty-state {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             color: #64748b;
+            font-size: 0.9rem;
         }
         
         .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
             color: #cbd5e1;
         }
         
         /* Responsive design */
         @media (min-width: 768px) {
-            .content-wrapper {
-                flex-direction: row;
+            .container {
+                max-width: 800px;
             }
             
             .form-section {
-                flex: 1;
-                min-width: 300px;
-            }
-            
-            .weekend-banner, .exchange-banner {
-                font-size: 1rem;
+                padding: 20px;
             }
             
             .benefits-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .payment-option {
-                min-width: 120px;
-            }
-            
-            .cash-options {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -860,17 +787,85 @@
             .benefits-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-            
-            .payment-option {
-                min-width: 130px;
-                font-size: 0.9rem;
-            }
+        }
+        
+        /* Nuevos estilos para reserva de dos personas */
+        .two-persons-container {
+            background: #f0f9ff;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #dbeafe;
+        }
+        
+        .two-persons-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .two-persons-toggle input {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .additional-person {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            border: 1px solid #e0e7ff;
+        }
+        
+        .additional-person.active {
+            display: block;
+        }
+        
+        .additional-person h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1rem;
+            border-bottom: 1px solid #e0e7ff;
+            padding-bottom: 6px;
+        }
+        
+        /* Nuevo estilo para zona restringida */
+        .restricted-zone {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.85rem;
+            color: #856404;
+        }
+        
+        /* Nuevos campos médicos */
+        .medical-info {
+            background: #f8fafc;
+            border-left: 4px solid var(--accent-purple);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+        
+        .medical-info h3 {
+            color: var(--accent-purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Cabecera compacta -->
+        <!-- Cabecera más pequeña con animaciones -->
         <header>
             <div class="header-actions">
                 <button class="action-btn" id="manageAppointmentBtn">
@@ -880,11 +875,11 @@
             
             <div class="logo-container">
                 <div class="logo-icon">
-                    <i class="fas fa-stethoscope"></i>
+                    <i class="fas fa-heartbeat"></i>
                 </div>
                 <div>
-                    <h1>ACES 24 Salud a tu Alcance</h1>
-                    <p class="tagline">Visita Médica General a Domicilio</p>
+                    <h1>Consulta Médica Domiciliaria</h1>
+                    <p class="tagline">Medicina General</p>
                 </div>
             </div>
             <div class="current-time" id="current-time">
@@ -892,19 +887,14 @@
             </div>
         </header>
         
-        <!-- Banner de fines de semana -->
-        <div class="weekend-banner">
-            <i class="fas fa-calendar-check"></i> ¡Fines de semana (Sábado y Domingo) al mismo precio!
-        </div>
-        
-        <!-- Nuevo banner para tasa BCV -->
+        <!-- Banner de tasa BCV actualizada -->
         <div class="exchange-banner">
-            <i class="fas fa-money-bill-wave"></i> Tasa de cambio oficial BCV: $1 = 121.00 Bs
+            <i class="fas fa-money-bill-wave"></i> Tasa de cambio oficial BCV: $1 = 135.00 Bs
         </div>
         
         <div class="content-wrapper">
             <div class="form-section">
-                <h2 class="section-title">Solicita tu Visita Médica</h2>
+                <h2 class="section-title"><i class="fas fa-file-medical"></i> Solicita tu Consulta Médica</h2>
                 
                 <form id="medicalForm">
                     <div class="form-group">
@@ -928,15 +918,25 @@
                         <input type="tel" id="phone" name="phone" required placeholder="Ej: 04121234567" pattern="[0-9]{11}">
                     </div>
                     
+                    <!-- Municipio -->
                     <div class="form-group">
-                        <label for="parish"><i class="fas fa-map-marker-alt"></i> Parroquia *</label>
-                        <select id="parish" name="parish" required>
-                            <option value="">Seleccione una parroquia</option>
-                            <option value="caucagua">Caucagua</option>
-                            <option value="marizapa">Marizapa</option>
+                        <label for="municipality"><i class="fas fa-map"></i> Municipio *</label>
+                        <select id="municipality" name="municipality" required>
+                            <option value="">Seleccione un municipio</option>
+                            <option value="acevedo">Acevedo</option>
+                            <option value="brion">Brion</option>
                         </select>
                     </div>
                     
+                    <!-- Parroquia dependiente del municipio -->
+                    <div class="form-group">
+                        <label for="parish"><i class="fas fa-map-marker-alt"></i> Parroquia *</label>
+                        <select id="parish" name="parish" required disabled>
+                            <option value="">Seleccione una parroquia</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Contenedores para zonas según parroquia -->
                     <div id="caucaguaZones" class="zone-container">
                         <div class="form-group">
                             <label for="caucaguaZone"><i class="fas fa-location-dot"></i> Zona de Caucagua *</label>
@@ -944,7 +944,8 @@
                                 <option value="">Seleccione una zona</option>
                                 <option value="La línea">La línea</option>
                                 <option value="El Viento">El Viento</option>
-                                <option value="El Hoyo El Cacho">El Hoyo El Cacho</option>
+                                <option value="El Hoyo">El Hoyo</option>
+                                <option value="El Cacho">El Cacho</option>
                                 <option value="Tajamar">Tajamar</option>
                                 <option value="Rivas Dávila">Rivas Dávila</option>
                                 <option value="Terminal">Terminal</option>
@@ -970,6 +971,16 @@
                                 <option value="Río Grande">Río Grande</option>
                                 <option value="El Porvenir">El Porvenir</option>
                                 <option value="Encrucijada">Encrucijada</option>
+                                <option value="Quebrada Seca">Quebrada Seca</option>
+                                <option value="Chaguaramas">Chaguaramas</option>
+                                <option value="Merecure el puente">Merecure el puente</option>
+                                <option value="Merecure San Jacinto">Merecure San Jacinto</option>
+                                <option value="Merecure el centro">Merecure el centro</option>
+                                <option value="Cholondron">Cholondron</option>
+                                <option value="Novillo 1">Novillo 1</option>
+                                <option value="Novillo 2">Novillo 2</option>
+                                <option value="Cacique Acevedo">Cacique Acevedo</option>
+                                <option value="Altos de Mesa de Urape">Altos de Mesa de Urape</option>
                             </select>
                         </div>
                     </div>
@@ -988,6 +999,21 @@
                         </div>
                     </div>
                     
+                    <div id="higueroteZones" class="zone-container">
+                        <div class="form-group">
+                            <label for="higueroteZone"><i class="fas fa-location-dot"></i> Zona de Higuerote *</label>
+                            <select id="higueroteZone" name="zone">
+                                <option value="">Seleccione una zona</option>
+                                <option value="Casco central de Higuerote">Casco central de Higuerote</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Mensaje para zonas restringidas -->
+                    <div id="restrictedZoneMessage" class="restricted-zone" style="display:none;">
+                        <i class="fas fa-exclamation-triangle"></i> Para esta zona, no está disponible el pago en efectivo. Por favor, seleccione otro método de pago.
+                    </div>
+                    
                     <!-- Nuevos campos agregados -->
                     <div class="form-group">
                         <label for="address"><i class="fas fa-home"></i> Dirección Exacta *</label>
@@ -999,22 +1025,63 @@
                         <input type="text" id="reference" name="reference" placeholder="Ej: Frente al supermercado, casa azul, etc.">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="date"><i class="fas fa-calendar-alt"></i> Fecha de Visita *</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-clock"></i> Horarios Disponibles *</label>
-                        <div class="time-slots" id="timeSlotsContainer">
-                            <!-- Horarios generados dinámicamente -->
+                    <!-- Nuevos campos médicos -->
+                    <div class="medical-info">
+                        <h3><i class="fas fa-stethoscope"></i> Información Médica</h3>
+                        
+                        <div class="form-group">
+                            <label for="consultReason"><i class="fas fa-question-circle"></i> Motivo de Consulta *</label>
+                            <input type="text" id="consultReason" name="consultReason" required placeholder="Ej: Dolor de cabeza, fiebre, revisión médica...">
                         </div>
-                        <input type="hidden" id="selectedTime" name="selectedTime">
+                        
+                        <div class="form-group">
+                            <label for="symptoms"><i class="fas fa-heartbeat"></i> Signos y Síntomas *</label>
+                            <textarea id="symptoms" name="symptoms" required placeholder="Describa los síntomas que presenta el paciente, duración, intensidad, etc."></textarea>
+                        </div>
                     </div>
                     
+                    <!-- Nuevo banner de precio moderno -->
                     <div id="priceDisplay" class="price-display">
-                        <div><i class="fas fa-tag"></i> Precio de la consulta: $<span id="usdPrice">15.00</span></div>
-                        <div class="price-ves">Equivalente: <span id="vesPrice">1815.00</span> Bs (Tasa BCV: 121.00 Bs/$)</div>
+                        <div class="price-info">
+                            <div class="price-label">
+                                <i class="fas fa-tag"></i> Precio de la consulta
+                            </div>
+                            <div class="price-value">$<span id="usdPrice">15.00</span></div>
+                            <div class="price-secondary" id="priceType">(General)</div>
+                        </div>
+                        
+                        <div class="price-ves">
+                            <div><i class="fas fa-money-bill"></i> Equivalente en Bolívares</div>
+                            <div class="price-value"><span id="vesPrice">2025.00</span> Bs</div>
+                            <div class="price-secondary">(Tasa BCV: 135.00 Bs/$)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reserva para dos personas -->
+                    <div class="two-persons-container">
+                        <div class="two-persons-toggle">
+                            <input type="checkbox" id="twoPersons">
+                            <label for="twoPersons">Reservar para dos personas</label>
+                        </div>
+                        
+                        <div class="additional-person" id="additionalPerson">
+                            <h3>Información de la segunda persona</h3>
+                            
+                            <div class="form-group">
+                                <label for="fullName2"><i class="fas fa-user"></i> Nombre y Apellido *</label>
+                                <input type="text" id="fullName2" name="fullName2" placeholder="Ej: María Rodríguez">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="age2"><i class="fas fa-birthday-cake"></i> Edad *</label>
+                                <input type="number" id="age2" name="age2" min="1" max="120" placeholder="Ej: 28">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="idNumber2"><i class="fas fa-id-card"></i> Número de Cédula *</label>
+                                <input type="text" id="idNumber2" name="idNumber2" placeholder="Ej: V-87654321">
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="minor-note">
@@ -1036,11 +1103,7 @@
                                 <i class="fas fa-wallet"></i>
                                 <div>Monedero Patria</div>
                             </div>
-                            <div class="payment-option" data-payment="crixto-pay">
-                                <i class="fas fa-hands-praying"></i>
-                                <div>Crixto Pay</div>
-                            </div>
-                            <div class="payment-option" data-payment="efectivo">
+                            <div class="payment-option" data-payment="efectivo" id="cashOption">
                                 <i class="fas fa-money-bill-wave"></i>
                                 <div>Efectivo</div>
                             </div>
@@ -1049,7 +1112,7 @@
                     </div>
                     
                     <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Solicitar Visita
+                        <i class="fas fa-paper-plane"></i> Solicitar Consulta
                     </button>
                 </form>
             </div>
@@ -1112,9 +1175,9 @@
         </div>
         
         <footer>
-            <p>ACES 24 Salud a tu Alcance © <span id="current-year"></span> | Atención Médica Domiciliaria</p>
+            <p>Consulta Médica Domiciliaria © <span id="current-year"></span></p>
             <p><i class="fas fa-phone"></i> Contáctanos: 0426-4968774 | <i class="fas fa-envelope"></i> aces24salud@gmail.com</p>
-            <p><i class="fas fa-clock"></i> Horario de atención: de lunes a domingo de 8:00 am a 4:00 pm</p>
+            <p><i class="fas fa-clock"></i> Horario de atención al público: de lunes a viernes desde 8:00 am a 4:00 pm.</p>
         </footer>
     </div>
     
@@ -1135,7 +1198,7 @@
                 </div>
                 
                 <div class="terms-container">
-                    <h3>CONDICIONES DE PAGO - ACES 24: SALUD A TU ALCANCE!</h3>
+                    <h3>CONDICIONES DE PAGO</h3>
                     
                     <p>1. MÉTODOS DE PAGO ACEPTADOS:</p>
                     <p>Facilitamos su experiencia con múltiples opciones:</p>
@@ -1143,7 +1206,6 @@
                         <li>Transferencias bancarias.</li>
                         <li>Pago móvil interbancario.</li>
                         <li>Monedero Patria.</li>
-                        <li>Criptomonedas autorizadas (ej: Crixto Pay).</li>
                         <li>Efectivo (en Bolívares o divisas).</li>
                     </ul>
                     
@@ -1164,10 +1226,10 @@
                     </ul>
                     
                     <p>ACEPTACIÓN DE TÉRMINOS</p>
-                    <p>Al solicitar servicios médicos a través de ACES 24, usted reconoce haber leído y aceptado estas condiciones de pago y las normativas internas de la plataforma.</p>
+                    <p>Al solicitar servicios médicos, usted reconoce haber leído y aceptado estas condiciones de pago.</p>
                     
                     <p>COMPROMISO DE TRANSPARENCIA</p>
-                    <p>Operamos bajo el marco legal de la República Bolivariana de Venezuela, asegurando procesos claros, auditables y alineados con los estándares de calidad del sector salud.</p>
+                    <p>Operamos bajo el marco legal de la República Bolivariana de Venezuela, asegurando procesos claros y auditables.</p>
                 </div>
                 
                 <div class="accept-terms">
@@ -1221,54 +1283,23 @@
                     <i class="fas fa-search"></i> Buscar mis citas
                 </button>
                 
-                <div id="appointmentsList" style="margin-top: 20px;">
+                <div id="appointmentsList" style="margin-top: 15px;">
                     <!-- Aquí se mostrarán las citas encontradas -->
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Modal de efectivo -->
-    <div class="modal-overlay" id="cashModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Pago en Efectivo</h2>
-                <button class="close-modal" id="closeCashModal">×</button>
-            </div>
-            <div class="modal-content">
-                <p>Por favor seleccione la moneda con la que realizará el pago:</p>
-                
-                <div class="cash-options">
-                    <div class="cash-option" data-currency="bs">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <div>Bolívares (Bs)</div>
-                    </div>
-                    <div class="cash-option" data-currency="usd">
-                        <i class="fas fa-dollar-sign"></i>
-                        <div>Dólares ($)</div>
-                    </div>
-                </div>
-                
-                <div class="modal-buttons" style="margin-top: 20px;">
-                    <button class="modal-btn cancel" id="cancelCashBtn">Cancelar</button>
-                    <button class="modal-btn confirm" id="confirmCashBtn">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <script>
-        // Tasa de cambio fija del BCV
-        const EXCHANGE_RATE = 121.00;
+        // Tasa de cambio actualizada del BCV
+        const EXCHANGE_RATE = 135.00;
         
         // Almacenamiento de citas completas con fallback para GitHub Pages
         let appointments = [];
-        let reservedSlots = {};
         
         // Intentar cargar datos desde localStorage
         try {
             appointments = JSON.parse(localStorage.getItem('appointments')) || [];
-            reservedSlots = JSON.parse(localStorage.getItem('reservedSlots')) || {};
         } catch (e) {
             console.log("Error al cargar datos de localStorage, usando datos vacíos");
         }
@@ -1283,218 +1314,190 @@
         // Actualizar año actual en el footer
         document.getElementById('current-year').textContent = moment().year();
         
-        // Configurar fecha mínima para hoy
-        const today = moment().format('YYYY-MM-DD');
-        document.getElementById('date').min = today;
-        document.getElementById('date').value = today;
-        
         // Inicializar y actualizar cada segundo
         updateDateTime();
         setInterval(updateDateTime, 1000);
         
         // Función para actualizar los precios
-        function updatePrices(age) {
+        function updatePrices() {
+            let totalPrice = 0;
+            let priceType = "";
+            
+            // Precio para la primera persona
+            const age = parseInt(document.getElementById('age').value) || 0;
             let price = 15.00;
-            let priceType = "General";
+            let priceType1 = "General";
             
             if (age < 13) {
                 price = 12.00;
-                priceType = "Niños";
+                priceType1 = "Niños";
             } else if (age >= 55) {
                 price = 12.00;
-                priceType = "Adultos Mayores";
+                priceType1 = "Adultos Mayores";
+            }
+            
+            totalPrice += price;
+            
+            // Precio para la segunda persona si está habilitada
+            let priceType2 = "";
+            if (document.getElementById('twoPersons').checked) {
+                const age2 = parseInt(document.getElementById('age2').value) || 0;
+                let price2 = 15.00;
+                priceType2 = "General";
+                
+                if (age2 < 13) {
+                    price2 = 12.00;
+                    priceType2 = "Niños";
+                } else if (age2 >= 55) {
+                    price2 = 12.00;
+                    priceType2 = "Adultos Mayores";
+                }
+                
+                totalPrice += price2;
+                priceType = `(${priceType1} + ${priceType2})`;
+            } else {
+                priceType = `(${priceType1})`;
             }
             
             // Calcular precio en bolívares
-            const priceVES = (price * EXCHANGE_RATE).toFixed(2);
+            const priceVES = (totalPrice * EXCHANGE_RATE).toFixed(2);
             
             // Actualizar elementos HTML
-            document.getElementById('usdPrice').textContent = price.toFixed(2);
+            document.getElementById('usdPrice').textContent = totalPrice.toFixed(2);
             document.getElementById('vesPrice').textContent = priceVES;
+            document.getElementById('priceType').textContent = priceType;
         }
         
         // Inicializar precios
-        updatePrices(0);
+        updatePrices();
         
-        // Mostrar zonas según parroquia seleccionada
-        document.getElementById('parish').addEventListener('change', function() {
-            const parish = this.value;
+        // Lista de zonas restringidas sin pago en efectivo
+        const restrictedZones = [
+            "Quebrada Seca", "Chaguaramas", "Merecure el puente", 
+            "Merecure San Jacinto", "Merecure el centro", "Cholondron", 
+            "Novillo 1", "Novillo 2", "Cacique Acevedo", "Altos de Mesa de Urape"
+        ];
+        
+        // Configurar municipio y parroquias
+        document.getElementById('municipality').addEventListener('change', function() {
+            const municipality = this.value;
+            const parishSelect = document.getElementById('parish');
+            parishSelect.disabled = !municipality;
+            
+            // Limpiar opciones anteriores
+            parishSelect.innerHTML = '<option value="">Seleccione una parroquia</option>';
+            
+            // Ocultar todos los contenedores de zonas
             document.getElementById('caucaguaZones').style.display = 'none';
             document.getElementById('marizapaZones').style.display = 'none';
+            document.getElementById('higueroteZones').style.display = 'none';
+            document.getElementById('restrictedZoneMessage').style.display = 'none';
             
+            // Llenar parroquias según municipio
+            if (municipality === 'acevedo') {
+                parishSelect.innerHTML += `
+                    <option value="caucagua">Caucagua</option>
+                    <option value="marizapa">Marizapa</option>
+                `;
+            } else if (municipality === 'brion') {
+                parishSelect.innerHTML += `
+                    <option value="higuerote">Higuerote</option>
+                `;
+            }
+            
+            // Mostrar opción de pago en efectivo por defecto
+            document.getElementById('cashOption').style.display = 'flex';
+        });
+        
+        // Configurar parroquia y zonas
+        document.getElementById('parish').addEventListener('change', function() {
+            const parish = this.value;
+            
+            // Ocultar todos los contenedores de zonas
+            document.getElementById('caucaguaZones').style.display = 'none';
+            document.getElementById('marizapaZones').style.display = 'none';
+            document.getElementById('higueroteZones').style.display = 'none';
+            document.getElementById('restrictedZoneMessage').style.display = 'none';
+            
+            // Mostrar opción de pago en efectivo por defecto
+            document.getElementById('cashOption').style.display = 'flex';
+            
+            // Mostrar zonas según parroquia seleccionada
             if (parish === 'caucagua') {
                 document.getElementById('caucaguaZones').style.display = 'block';
             } else if (parish === 'marizapa') {
                 document.getElementById('marizapaZones').style.display = 'block';
+            } else if (parish === 'higuerote') {
+                document.getElementById('higueroteZones').style.display = 'block';
             }
         });
         
-        // Actualizar precio según edad
-        document.getElementById('age').addEventListener('input', function() {
-            const age = parseInt(this.value) || 0;
-            updatePrices(age);
+        // Configurar zona y controlar método de pago
+        document.getElementById('caucaguaZone').addEventListener('change', function() {
+            const zone = this.value;
+            const cashOption = document.getElementById('cashOption');
+            const message = document.getElementById('restrictedZoneMessage');
+            
+            if (restrictedZones.includes(zone)) {
+                cashOption.style.display = 'none';
+                message.style.display = 'block';
+                
+                // Si el pago en efectivo estaba seleccionado, deseleccionarlo
+                if (selectedPayment && selectedPayment.startsWith('efectivo')) {
+                    document.querySelectorAll('.payment-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    selectedPayment = null;
+                    document.getElementById('paymentMethod').value = '';
+                }
+            } else {
+                cashOption.style.display = 'flex';
+                message.style.display = 'none';
+            }
         });
         
-        // Generar horarios disponibles
-        function generateTimeSlots() {
-            const container = document.getElementById('timeSlotsContainer');
-            container.innerHTML = '';
+        // Habilitar campos para segunda persona
+        document.getElementById('twoPersons').addEventListener('change', function() {
+            const additionalPerson = document.getElementById('additionalPerson');
+            const requiredFields = additionalPerson.querySelectorAll('input[required]');
             
-            // Horarios disponibles (8:00 AM a 2:00 PM cada 2 horas)
-            const times = ['08:00', '10:00', '12:00', '14:00'];
-            const selectedDate = document.getElementById('date').value;
+            if (this.checked) {
+                additionalPerson.classList.add('active');
+                // Hacer los campos requeridos
+                requiredFields.forEach(field => field.required = true);
+            } else {
+                additionalPerson.classList.remove('active');
+                // Eliminar el atributo required
+                requiredFields.forEach(field => field.required = false);
+            }
             
-            // Verificar si es lunes (día 1)
-            const selectedDay = moment(selectedDate).day();
-            const isMonday = selectedDay === 1;
-            
-            // Verificar si la fecha es hoy
-            const isToday = selectedDate === today;
-            const now = moment();
-            
-            // Crear clave para la fecha seleccionada
-            const dateKey = selectedDate.replace(/-/g, '');
-            
-            times.forEach(time => {
-                const slot = document.createElement('div');
-                slot.className = 'time-slot';
-                slot.textContent = formatTime(time);
-                slot.setAttribute('data-time', time);
-                
-                // Comprobar si es lunes
-                if (isMonday) {
-                    slot.classList.add('reserved');
-                    slot.innerHTML = "Lunes no disponible";
-                    slot.style.cursor = "not-allowed";
-                } 
-                // Comprobar si está reservado
-                else if (reservedSlots[dateKey] && reservedSlots[dateKey].includes(time)) {
-                    slot.classList.add('reserved');
-                    slot.innerHTML = "Reservado";
-                    slot.style.cursor = "not-allowed";
-                }
-                // Verificar si es un horario pasado para hoy
-                else if (isToday) {
-                    const timeParts = time.split(':');
-                    const slotTime = moment().set({
-                        hour: parseInt(timeParts[0]),
-                        minute: parseInt(timeParts[1]),
-                        second: 0,
-                        millisecond: 0
-                    });
-                    
-                    if (slotTime.isSameOrBefore(now, 'minute')) {
-                        slot.classList.add('past');
-                    } else {
-                        slot.classList.add('available');
-                        addTimeSlotClickListener(slot, time);
-                    }
-                } 
-                // Horario disponible
-                else {
-                    slot.classList.add('available');
-                    addTimeSlotClickListener(slot, time);
-                }
-                
-                container.appendChild(slot);
-            });
-        }
+            // Actualizar precios
+            updatePrices();
+        });
         
-        // Función para agregar evento click a un horario disponible
-        function addTimeSlotClickListener(slot, time) {
-            slot.addEventListener('click', function() {
-                // Remover selección anterior
-                document.querySelectorAll('.time-slot').forEach(s => {
-                    s.classList.remove('selected');
-                });
-                
-                // Marcar como seleccionado
-                this.classList.add('selected');
-                document.getElementById('selectedTime').value = time;
-            });
-        }
-        
-        // Formatear hora para mostrar
-        function formatTime(time) {
-            const [hours, minutes] = time.split(':');
-            const hour = parseInt(hours);
-            const period = hour >= 12 ? 'PM' : 'AM';
-            const displayHour = hour % 12 || 12;
-            return `${displayHour}:${minutes} ${period}`;
-        }
-        
-        // Inicializar horarios
-        generateTimeSlots();
-        
-        // Actualizar horarios al cambiar fecha
-        document.getElementById('date').addEventListener('change', generateTimeSlots);
+        // Actualizar precios cuando cambia la edad
+        document.getElementById('age').addEventListener('input', updatePrices);
+        document.getElementById('age2').addEventListener('input', updatePrices);
+        document.getElementById('twoPersons').addEventListener('change', updatePrices);
         
         // Selección de método de pago
         const paymentOptions = document.querySelectorAll('.payment-option');
         let selectedPayment = null;
-        let cashCurrency = null;
         
         paymentOptions.forEach(option => {
             option.addEventListener('click', function() {
                 const paymentType = this.getAttribute('data-payment');
                 
-                // Si es efectivo, mostrar modal para seleccionar moneda
-                if (paymentType === 'efectivo') {
-                    document.getElementById('cashModal').classList.add('active');
-                } else {
-                    // Remover selección anterior
-                    paymentOptions.forEach(o => {
-                        o.classList.remove('selected');
-                    });
-                    
-                    // Marcar como seleccionado
-                    this.classList.add('selected');
-                    selectedPayment = paymentType;
-                    document.getElementById('paymentMethod').value = selectedPayment;
-                }
-            });
-        });
-        
-        // Selección de moneda para efectivo
-        const cashOptions = document.querySelectorAll('.cash-option');
-        cashOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                cashOptions.forEach(o => {
+                // Remover selección anterior
+                paymentOptions.forEach(o => {
                     o.classList.remove('selected');
                 });
+                
+                // Marcar como seleccionado
                 this.classList.add('selected');
-                cashCurrency = this.getAttribute('data-currency');
+                selectedPayment = paymentType;
+                document.getElementById('paymentMethod').value = selectedPayment;
             });
-        });
-        
-        // Confirmar selección de efectivo
-        document.getElementById('confirmCashBtn').addEventListener('click', function() {
-            if (!cashCurrency) {
-                alert('Por favor seleccione una moneda');
-                return;
-            }
-            
-            // Remover selección anterior de otros métodos
-            paymentOptions.forEach(o => {
-                o.classList.remove('selected');
-            });
-            
-            // Marcar efectivo como seleccionado
-            document.querySelector('[data-payment="efectivo"]').classList.add('selected');
-            selectedPayment = `efectivo-${cashCurrency}`;
-            document.getElementById('paymentMethod').value = selectedPayment;
-            
-            // Cerrar modal
-            document.getElementById('cashModal').classList.remove('active');
-        });
-        
-        // Cerrar modal de efectivo
-        document.getElementById('closeCashModal').addEventListener('click', function() {
-            document.getElementById('cashModal').classList.remove('active');
-        });
-        
-        document.getElementById('cancelCashBtn').addEventListener('click', function() {
-            document.getElementById('cashModal').classList.remove('active');
         });
         
         // Modal de términos
@@ -1523,30 +1526,72 @@
             const age = document.getElementById('age').value;
             const idNumber = document.getElementById('idNumber').value;
             const phone = document.getElementById('phone').value;
+            const municipality = document.getElementById('municipality').value;
             const parish = document.getElementById('parish').value;
-            const date = document.getElementById('date').value;
-            const selectedTime = document.getElementById('selectedTime').value;
             const paymentMethod = selectedPayment;
             const address = document.getElementById('address').value;
             const reference = document.getElementById('reference').value;
+            const twoPersons = document.getElementById('twoPersons').checked;
+            const consultReason = document.getElementById('consultReason').value;
+            const symptoms = document.getElementById('symptoms').value;
             
             let zone = '';
             if (parish === 'caucagua') {
                 zone = document.getElementById('caucaguaZone').value;
             } else if (parish === 'marizapa') {
                 zone = document.getElementById('marizapaZone').value;
+            } else if (parish === 'higuerote') {
+                zone = document.getElementById('higueroteZone').value;
             }
             
+            let price = 0;
+            let priceType = "";
+            
+            // Calcular precio para la primera persona
             const patientAge = parseInt(age);
-            let price = 15.00;
-            let priceType = "General";
+            let price1 = 15.00;
+            let priceType1 = "General";
             
             if (patientAge < 13) {
-                price = 12.00;
-                priceType = "Niños";
+                price1 = 12.00;
+                priceType1 = "Niños";
             } else if (patientAge >= 55) {
-                price = 12.00;
-                priceType = "Adultos Mayores";
+                price1 = 12.00;
+                priceType1 = "Adultos Mayores";
+            }
+            
+            price += price1;
+            
+            // Información de la segunda persona
+            let person2Info = "";
+            if (twoPersons) {
+                const fullName2 = document.getElementById('fullName2').value;
+                const age2 = document.getElementById('age2').value;
+                const idNumber2 = document.getElementById('idNumber2').value;
+                
+                let price2 = 15.00;
+                let priceType2 = "General";
+                
+                const patientAge2 = parseInt(age2) || 0;
+                if (patientAge2 < 13) {
+                    price2 = 12.00;
+                    priceType2 = "Niños";
+                } else if (patientAge2 >= 55) {
+                    price2 = 12.00;
+                    priceType2 = "Adultos Mayores";
+                }
+                
+                price += price2;
+                priceType = `${priceType1} + ${priceType2}`;
+                
+                person2Info = `
+                    <h3>Segunda Persona</h3>
+                    <p><strong>Nombre:</strong> ${fullName2}</p>
+                    <p><strong>Edad:</strong> ${age2}</p>
+                    <p><strong>Cédula:</strong> ${idNumber2}</p>
+                `;
+            } else {
+                priceType = priceType1;
             }
             
             // Calcular precio en bolívares
@@ -1559,13 +1604,16 @@
                     <p><strong>Edad:</strong> ${age}</p>
                     <p><strong>Cédula:</strong> ${idNumber}</p>
                     <p><strong>Celular:</strong> ${phone}</p>
-                    <p><strong>Ubicación:</strong> ${parish === 'caucagua' ? 'Caucagua' : 'Marizapa'} - ${zone}</p>
+                    <p><strong>Municipio:</strong> ${municipality === 'acevedo' ? 'Acevedo' : 'Brion'}</p>
+                    <p><strong>Parroquia:</strong> ${parish === 'caucagua' ? 'Caucagua' : parish === 'marizapa' ? 'Marizapa' : 'Higuerote'}</p>
+                    <p><strong>Zona:</strong> ${zone}</p>
                     <p><strong>Dirección:</strong> ${address}</p>
                     ${reference ? `<p><strong>Referencia:</strong> ${reference}</p>` : ''}
-                    <p><strong>Fecha:</strong> ${moment(date).format('DD/MM/YYYY')}</p>
-                    <p><strong>Hora:</strong> ${formatTime(selectedTime)}</p>
+                    <p><strong>Motivo de consulta:</strong> ${consultReason}</p>
+                    <p><strong>Síntomas:</strong> ${symptoms}</p>
                     <p><strong>Método de pago:</strong> ${getPaymentMethodName(paymentMethod)}</p>
-                    <p><strong>Precio:</strong> $${price.toFixed(2)} (${priceType}) | ${priceVES} Bs</p>
+                    <p><strong>Precio:</strong> $${price.toFixed(2)} ${priceType} | ${priceVES} Bs</p>
+                    ${person2Info}
                 </div>
             `;
             
@@ -1606,150 +1654,168 @@
             const age = document.getElementById('age').value;
             const idNumber = document.getElementById('idNumber').value;
             const phone = document.getElementById('phone').value;
+            const municipality = document.getElementById('municipality').value;
             const parish = document.getElementById('parish').value;
-            const date = document.getElementById('date').value;
-            const selectedTime = document.getElementById('selectedTime').value;
             const paymentMethod = selectedPayment;
             const address = document.getElementById('address').value;
             const reference = document.getElementById('reference').value;
+            const twoPersons = document.getElementById('twoPersons').checked;
+            const consultReason = document.getElementById('consultReason').value;
+            const symptoms = document.getElementById('symptoms').value;
             
             let zone = '';
             if (parish === 'caucagua') {
                 zone = document.getElementById('caucaguaZone').value;
             } else if (parish === 'marizapa') {
                 zone = document.getElementById('marizapaZone').value;
+            } else if (parish === 'higuerote') {
+                zone = document.getElementById('higueroteZone').value;
             }
             
+            let price = 0;
+            let priceType = "";
+            
+            // Calcular precio para la primera persona
             const patientAge = parseInt(age);
-            let price = 15.00;
-            let priceType = "General";
+            let price1 = 15.00;
+            let priceType1 = "General";
             
             if (patientAge < 13) {
-                price = 12.00;
-                priceType = "Niños";
+                price1 = 12.00;
+                priceType1 = "Niños";
             } else if (patientAge >= 55) {
-                price = 12.00;
-                priceType = "Adultos Mayores";
+                price1 = 12.00;
+                priceType1 = "Adultos Mayores";
+            }
+            
+            price += price1;
+            
+            // Información de la segunda persona
+            let person2Info = "";
+            if (twoPersons) {
+                const fullName2 = document.getElementById('fullName2').value;
+                const age2 = document.getElementById('age2').value;
+                const idNumber2 = document.getElementById('idNumber2').value;
+                
+                let price2 = 15.00;
+                let priceType2 = "General";
+                
+                const patientAge2 = parseInt(age2) || 0;
+                if (patientAge2 < 13) {
+                    price2 = 12.00;
+                    priceType2 = "Niños";
+                } else if (patientAge2 >= 55) {
+                    price2 = 12.00;
+                    priceType2 = "Adultos Mayores";
+                }
+                
+                price += price2;
+                priceType = `${priceType1} + ${priceType2}`;
+                
+                person2Info = `
+                    *Segunda Persona*
+                    *Nombre:* ${fullName2}
+                    *Edad:* ${age2}
+                    *Cédula:* ${idNumber2}
+                    
+                `;
+            } else {
+                priceType = priceType1;
             }
             
             // Calcular precio en bolívares
             const priceVES = (price * EXCHANGE_RATE).toFixed(2);
             
             // Formatear mensaje para WhatsApp
-            const message = `*Nueva Solicitud de Visita Médica Domiciliaria ACES 24*\n\n` +
-                            `*Nombre y Apellido:* ${fullName}\n` +
+            const message = `*Nueva Solicitud de Consulta Médica Domiciliaria*\n\n` +
+                            `*Nombre:* ${fullName}\n` +
                             `*Edad:* ${age}\n` +
                             `*Cédula:* ${idNumber}\n` +
                             `*Celular:* ${phone}\n` +
-                            `*Parroquia:* ${parish === 'caucagua' ? 'Caucagua' : 'Marizapa'}\n` +
+                            `*Municipio:* ${municipality === 'acevedo' ? 'Acevedo' : 'Brion'}\n` +
+                            `*Parroquia:* ${parish === 'caucagua' ? 'Caucagua' : parish === 'marizapa' ? 'Marizapa' : 'Higuerote'}\n` +
                             `*Zona:* ${zone}\n` +
                             `*Dirección:* ${address}\n` +
                             `${reference ? `*Referencia:* ${reference}\n` : ''}` +
-                            `*Fecha:* ${moment(date).format('DD/MM/YYYY')}\n` +
-                            `*Hora:* ${formatTime(selectedTime)}\n` +
+                            `*Motivo de consulta:* ${consultReason}\n` +
+                            `*Síntomas:* ${symptoms}\n` +
                             `*Método de Pago:* ${getPaymentMethodName(paymentMethod)}\n` +
                             `*Precio (${priceType}):* $${price.toFixed(2)} | ${priceVES} Bs\n\n` +
+                            `${twoPersons ? person2Info : ''}` +
                             `_Solicitud generada el ${moment().format('DD/MM/YYYY [a las] h:mm A')}_`;
             
             // Codificar mensaje para URL
             const encodedMessage = encodeURIComponent(message);
             
-            // Intentar abrir WhatsApp
-            try {
-                // Guardar la cita con manejo de errores
-                const appointment = {
-                    id: Date.now(), // ID único
-                    fullName,
-                    age,
-                    idNumber,
-                    phone,
-                    parish,
-                    zone,
-                    address,
-                    reference,
-                    date,
-                    time: selectedTime,
-                    paymentMethod,
-                    price: price.toFixed(2),
-                    priceVES,
-                    status: 'pendiente',
-                    createdAt: moment().format()
-                };
-                
-                appointments.push(appointment);
-                
-                try {
-                    localStorage.setItem('appointments', JSON.stringify(appointments));
-                } catch (e) {
-                    console.log("Error al guardar en localStorage:", e);
-                }
-                
-                // Guardar el horario como reservado
-                const dateKey = date.replace(/-/g, '');
-                
-                if (!reservedSlots[dateKey]) {
-                    reservedSlots[dateKey] = [];
-                }
-                
-                if (!reservedSlots[dateKey].includes(selectedTime)) {
-                    reservedSlots[dateKey].push(selectedTime);
-                    
-                    try {
-                        localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
-                    } catch (e) {
-                        console.log("Error al guardar en localStorage:", e);
-                    }
-                }
-                
-                // Abrir WhatsApp con el mensaje
-                window.open(`https://wa.me/584264968774?text=${encodedMessage}`, '_blank');
-            } catch (e) {
-                // Si falla la apertura de WhatsApp, liberar el horario
-                alert('Error al intentar abrir WhatsApp. Por favor, inténtelo nuevamente.');
-                const dateKey = date.replace(/-/g, '');
-                
-                if (reservedSlots[dateKey] && reservedSlots[dateKey].includes(selectedTime)) {
-                    reservedSlots[dateKey] = reservedSlots[dateKey].filter(t => t !== selectedTime);
-                    
-                    try {
-                        localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
-                    } catch (e) {
-                        console.log("Error al actualizar localStorage:", e);
-                    }
-                }
+            // Guardar la cita con manejo de errores
+            const appointment = {
+                id: Date.now(), // ID único
+                fullName,
+                age,
+                idNumber,
+                phone,
+                municipality,
+                parish,
+                zone,
+                address,
+                reference,
+                consultReason,
+                symptoms,
+                paymentMethod,
+                price: price.toFixed(2),
+                priceVES,
+                status: 'pendiente',
+                createdAt: moment().format(),
+                twoPersons: twoPersons
+            };
+            
+            if (twoPersons) {
+                appointment.fullName2 = document.getElementById('fullName2').value;
+                appointment.age2 = document.getElementById('age2').value;
+                appointment.idNumber2 = document.getElementById('idNumber2').value;
             }
+            
+            appointments.push(appointment);
+            
+            try {
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+            } catch (e) {
+                console.log("Error al guardar en localStorage:", e);
+            }
+            
+            // Abrir WhatsApp con el mensaje
+            window.open(`https://wa.me/584264968774?text=${encodedMessage}`, '_blank');
             
             // Cerrar modal de éxito
             successModal.classList.remove('active');
-            
-            // Actualizar la visualización de horarios
-            generateTimeSlots();
         });
         
         // Enviar formulario (mostrar modal de términos)
         document.getElementById('medicalForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Validar selección de hora
-            const selectedTime = document.getElementById('selectedTime').value;
-            if (!selectedTime) {
-                alert('Por favor, seleccione un horario disponible.');
+            // Validar selección de municipio
+            const municipality = document.getElementById('municipality').value;
+            if (!municipality) {
+                alert('Por favor, seleccione un municipio.');
                 return;
             }
             
-            // Validar método de pago
-            if (!selectedPayment) {
-                alert('Por favor, seleccione un método de pago.');
-                return;
-            }
-            
-            // Validar zona seleccionada
+            // Validar selección de parroquia
             const parish = document.getElementById('parish').value;
+            if (!parish) {
+                alert('Por favor, seleccione una parroquia.');
+                return;
+            }
+            
+            // Validar selección de zona
             let zone = '';
             if (parish === 'caucagua') {
                 zone = document.getElementById('caucaguaZone').value;
             } else if (parish === 'marizapa') {
                 zone = document.getElementById('marizapaZone').value;
+            } else if (parish === 'higuerote') {
+                zone = document.getElementById('higueroteZone').value;
             }
             
             if (!zone) {
@@ -1764,26 +1830,34 @@
                 return;
             }
             
-            // Verificar si es lunes
-            const selectedDate = document.getElementById('date').value;
-            const selectedDay = moment(selectedDate).day();
-            if (selectedDay === 1) {
-                alert('Lo sentimos, los lunes no están disponibles para citas.');
+            // Validar motivo de consulta
+            const consultReason = document.getElementById('consultReason').value;
+            if (!consultReason) {
+                alert('Por favor, indique el motivo de la consulta.');
                 return;
             }
             
-            // Validar que el horario no sea pasado si es hoy
-            if (selectedDate === today) {
-                const timeParts = selectedTime.split(':');
-                const slotTime = moment().set({
-                    hour: parseInt(timeParts[0]),
-                    minute: parseInt(timeParts[1]),
-                    second: 0,
-                    millisecond: 0
-                });
-
-                if (slotTime.isSameOrBefore(moment(), 'minute')) {
-                    alert('No se puede agendar una cita en un horario que ya ha pasado.');
+            // Validar síntomas
+            const symptoms = document.getElementById('symptoms').value;
+            if (!symptoms) {
+                alert('Por favor, describa los síntomas del paciente.');
+                return;
+            }
+            
+            // Validar método de pago
+            if (!selectedPayment) {
+                alert('Por favor, seleccione un método de pago.');
+                return;
+            }
+            
+            // Validar segunda persona si está habilitada
+            if (document.getElementById('twoPersons').checked) {
+                const fullName2 = document.getElementById('fullName2').value;
+                const age2 = document.getElementById('age2').value;
+                const idNumber2 = document.getElementById('idNumber2').value;
+                
+                if (!fullName2 || !age2 || !idNumber2) {
+                    alert('Por favor, complete todos los campos para la segunda persona.');
                     return;
                 }
             }
@@ -1798,9 +1872,7 @@
                 case 'pago-movil': return 'Pago Móvil';
                 case 'transferencia': return 'Transferencia';
                 case 'vepos': return 'Monedero Patria (vePos)';
-                case 'crixto-pay': return 'Crixto Pay';
-                case 'efectivo-bs': return 'Efectivo (Bs)';
-                case 'efectivo-usd': return 'Efectivo ($)';
+                case 'efectivo': return 'Efectivo';
                 default: return 'No especificado';
             }
         }
@@ -1825,7 +1897,12 @@
                 return;
             }
             
-            const userAppointments = appointments.filter(app => app.idNumber === idNumber && app.status === 'pendiente');
+            const userAppointments = appointments.filter(app => 
+                (app.idNumber === idNumber || 
+                (app.twoPersons && app.idNumber2 === idNumber)) && 
+                app.status === 'pendiente'
+            );
+            
             const container = document.getElementById('appointmentsList');
             container.innerHTML = '';
             
@@ -1842,12 +1919,20 @@
             userAppointments.forEach(app => {
                 const appElement = document.createElement('div');
                 appElement.className = 'appointment-card';
+                
+                let personInfo = "";
+                if (app.twoPersons) {
+                    personInfo = `
+                        <p><strong>Segunda persona:</strong> ${app.fullName2}</p>
+                    `;
+                }
+                
                 appElement.innerHTML = `
                     <h3>Cita Médica</h3>
                     <p><strong>Nombre:</strong> ${app.fullName}</p>
-                    <p><strong>Fecha:</strong> ${moment(app.date).format('DD/MM/YYYY')}</p>
-                    <p><strong>Hora:</strong> ${formatTime(app.time)}</p>
+                    ${personInfo}
                     <p><strong>Dirección:</strong> ${app.address}</p>
+                    <p><strong>Motivo:</strong> ${app.consultReason}</p>
                     <p><strong>Método de Pago:</strong> ${getPaymentMethodName(app.paymentMethod)}</p>
                     <button class="cancel-appointment-btn" data-id="${app.id}">
                         <i class="fas fa-times-circle"></i> Cancelar Cita
@@ -1867,20 +1952,7 @@
                     const appointment = appointments[appointmentIndex];
                     
                     // Confirmación antes de cancelar
-                    if (confirm(`¿Está seguro que desea cancelar la cita del ${moment(appointment.date).format('DD/MM/YYYY')} a las ${formatTime(appointment.time)}?`)) {
-                        // Liberar el horario reservado
-                        const dateKey = appointment.date.replace(/-/g, '');
-                        
-                        if (reservedSlots[dateKey]) {
-                            reservedSlots[dateKey] = reservedSlots[dateKey].filter(t => t !== appointment.time);
-                            
-                            try {
-                                localStorage.setItem('reservedSlots', JSON.stringify(reservedSlots));
-                            } catch (e) {
-                                console.log("Error al actualizar localStorage:", e);
-                            }
-                        }
-                        
+                    if (confirm(`¿Está seguro que desea cancelar la cita?`)) {
                         // Marcar cita como cancelada
                         appointments[appointmentIndex].status = 'cancelada';
                         
@@ -1892,9 +1964,6 @@
                         
                         // Volver a buscar citas
                         searchAppointmentsBtn.click();
-                        
-                        // Actualizar horarios en el formulario principal
-                        generateTimeSlots();
                         
                         alert('Cita cancelada exitosamente.');
                     }
